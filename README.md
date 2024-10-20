@@ -181,7 +181,7 @@ Isolation es zamanli transactionlari, pararelde birbirlerini etkilemeden calisti
 
 ### Isolation Seviyeleri
 
-- **READ_UNCOMMITTED**: Bir transaction, diger transaction'larin henuz commit edilmemis degisikliklerini gorebilir. Bu seviyede **dirty reads** (kirli okuma) olabilir. Yani, bir transaction baska bir transaction tarafindan yapilmis ancak henuz commit edilmemis bir degisikligi okuyabilir. 
+- **READ_UNCOMMITTED**: Bir transaction, diger transaction'larin henuz commit edilmemis degisikliklerini gorebilir. Bu seviyede **dirty reads** , **non-repeatable reads** ve **phantom reads** olabilir. Yani, bir transaction baska bir transaction tarafindan yapilmis ancak henuz commit edilmemis bir degisikligi okuyabilir. 
 <br> ! En hizlidir cunku veritabani islemleri uzerinde cok az kisitlama vardir.
 - **READ_COMMITTED**: Bir transaction yalnizca diger transaction'lar tarafindan commit edilmis degisiklikleri okuyabilir. **Dirty reads** engellenir.
 - **REPEATABLE_READ**: Bir transaction basladiginda ayni satiri birden fazla okudugunda, ayni veriyi gormeyi garanti eder. Ancak **phantom reads** hala olabilir. Yani, transaction sirasinda baska bir transaction yeni satirlar ekleyebilir.
