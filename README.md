@@ -142,11 +142,23 @@ Hangi istisnalarin (exceptions) transaction’in rollback edilmesini tetikleyecegi
 #### **DIRTY READS( Kirli Okuma)**
 - **Dirty Reads**, bir transaction’in baska bir transaction tarafindan yapilan ancak commit edilmemis degisiklikleri okumasidir. Eger bu degisiklikler daha sonra rollback edilirse, okunan veriler gecersiz hale gelir. Bu durum veri tutarsizliklarina yol acabilir.
 
+<p align="center">
+    <img src="png/dirtyRead.png" alt="full-text-search" width="%100" height="%100" style="border-radius: 20px">
+</p>
+
 #### **NON-REPEATABLE READS (Tekrarlanamayan Okuma)**
 - **Non-Repeatable Reads**, ayni transaction icinde ayni satirin farkli zamanlarda farkli sonuclarla okunmasidir. Bu, baska bir transaction'in veriyi guncellemesi ve commit etmesi durumunda meydana gelir.
 
+<p align="center">
+    <img src="png/nonRepeatableReads.png" alt="full-text-search" width="%100" height="%100" style="border-radius: 20px">
+</p>
+
 #### **PHANTOM READS (Hayalet Okuma)**
-- **Phantom Reads**, bir transaction'in ayni sorguyu tekrar ettiginde, daha once mevcut olmayan satirlari gormesidir. Baska bir transaction tarafindan yeni satirlarin eklenmesi durumunda bu olay ortaya cikar.
+- **Phantom Reads**, bir transaction'in ayni sorguyu tekrar ettiginde, daha once mevcut olmayan yeni sat?rlar eklenir (veya mevcut sat?rlar silinir). Ayn? i?lem i?inde yap?lan sonraki bir okuma, ilk okuma s?ras?nda mevcut olmayan sat?rlar? i?erebilir ya da silinen sat?rlar? i?ermeyebilir.
+
+<p align="center">
+    <img src="png/phantomRead.png" alt="full-text-search" width="%100" height="%100" style="border-radius: 20px">
+</p>
 
 #### 5. **isolation**
 Bir transaction’in diger transaction'larla olan etkilesim duzeyini belirler. Transaction isolation seviyeleri, bir transaction'in veritabanindaki diger transaction'larin yaptigi degisiklikleri ne zaman gorebilecegini kontrol eder.
