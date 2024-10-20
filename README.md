@@ -190,3 +190,26 @@ Isolation es zamanli transactionlari, pararelde birbirlerini etkilemeden calisti
 <p align="center">
     <img src="png/trasactionsIsolationsLevels.png" alt="full-text-search" width="%100" height="%100" style="border-radius: 20px">
 </p>
+
+
+## Tech Stack
+
+- Java 17
+- Spring Boot 3.0
+- H2 Database
+- Lombok
+
+## Requirements
+
+For building and running the application you need:
+
+- [JDK 17 or newer](https://www.oracle.com/java/technologies/javase-downloads.html)
+- [Maven](https://maven.apache.org)
+- [Lombok](https://projectlombok.org/)
+- [H2](https://www.h2database.com/)
+
+## Kaynakca:
+- https://www.youtube.com/watch?v=uTG952A6KBY
+- https://medium.com/gitconnected/sql-transactions-and-acid-properties-bb5b670538f8
+- https://kerteriz.net/spring-transactions-nedir-ve-nasil-kullanilir/
+- https://medium.com/@javainuse/spring-boot-transaction-tutorial-understanding-transaction-propagation-ad553f5d85d4
