@@ -23,23 +23,19 @@ Bir **transaction** (islem), bir veritabani uzerinde bir veya daha fazla sorgunu
 ### Rollback Nedir?
 **Rollback**, bir transaction'in basarisiz oldugu durumlarda, veritabaninda yapilan degisikliklerin geri alinmasidir. Boylece transaction sirasinda yapilan degisiklikler gecersiz hale getirilir ve veritabani onceki haline dondurulur. Rollback, veri tutarliligini korumak icin kullanilir.
 
-<br>
-<details>
-<summary>!!! Private metotlarda @Transactional anotasyonu calisir mi?</summary>
+### Database Transaction Ornegi
 
-Hayir, **private** metotlarda **@Transactional** anotasyonu **calismaz**. Bunun nedeni, Spring'in **@Transactional** anotasyonunu uygularken **AOP (Aspect-Oriented Programming)** yaklasimini kullanmasidir. Spring, transactional islemleri yonetmek icin metotlari **proxy**'ler, ancak yalnizca **public** metotlar bu proxy mekanizmasina dahil edilebilir.
+<p align="center">
+    <img src="png/db1.png" alt="full-text-search" width="%100" height="%100" style="border-radius: 20px">
+</p>
 
-**@Transactional** anotasyonunu bir **private** metoda uygularsaniz, Spring bu metodu proxy'lemedigi icin transactional yonetimi uygulanmaz. Yani, **private** metotlar transactional islemleri baslatmaz veya yonetmez.
+<p align="center">
+    <img src="png/db2.png" alt="full-text-search" width="%100" height="%100" style="border-radius: 20px">
+</p>
 
-**Transactional islemleri private metotlar icin kullanabilmenin yollari sunlardir:**
-
-1. **Metodu public yapin:** Eger transactional davranisini istiyorsaniz, metodu **public** hale getirmeniz gerekir.
-
-2. **Metodu baska bir public metot uzerinden cagirin:** Eger private metodu degistirmek istemiyorsaniz, onu bir **public** metot icinde cagirabilir ve transactional islemi bu **public** metoda uygulayabilirsiniz.
-
-Bu durumda, transactional islem yalnizca **public** metodun cagrilmasiyla baslar ve **private** metot, transactional islemi yonetemez.
-
-</details>
+<p align="center">
+    <img src="png/db3.png" alt="full-text-search" width="%100" height="%100" style="border-radius: 20px">
+</p>
 
 ---
 ## Spring Boot Transaction Ozellikleri
@@ -127,6 +123,24 @@ Transaction yonetiminin nasil ele alinacagini belirleyen bir ozelliktir. Transac
 <p align="center">
     <img src="png/NESTED.png" alt="full-text-search" width="%100" height="%100" style="border-radius: 20px">
 </p>
+
+<br>
+<details>
+<summary>!!! Private metotlarda @Transactional anotasyonu calisir mi?</summary>
+
+Hayir, **private** metotlarda **@Transactional** anotasyonu **calismaz**. Bunun nedeni, Spring'in **@Transactional** anotasyonunu uygularken **AOP (Aspect-Oriented Programming)** yaklasimini kullanmasidir. Spring, transactional islemleri yonetmek icin metotlari **proxy**'ler, ancak yalnizca **public** metotlar bu proxy mekanizmasina dahil edilebilir.
+
+**@Transactional** anotasyonunu bir **private** metoda uygularsaniz, Spring bu metodu proxy'lemedigi icin transactional yonetimi uygulanmaz. Yani, **private** metotlar transactional islemleri baslatmaz veya yonetmez.
+
+**Transactional islemleri private metotlar icin kullanabilmenin yollari sunlardir:**
+
+1. **Metodu public yapin:** Eger transactional davranisini istiyorsaniz, metodu **public** hale getirmeniz gerekir.
+
+2. **Metodu baska bir public metot uzerinden cagirin:** Eger private metodu degistirmek istemiyorsaniz, onu bir **public** metot icinde cagirabilir ve transactional islemi bu **public** metoda uygulayabilirsiniz.
+
+Bu durumda, transactional islem yalnizca **public** metodun cagrilmasiyla baslar ve **private** metot, transactional islemi yonetemez.
+
+</details>
 
 #### 2. **readOnly**
 `readOnly = true` olarak ayarlandiginda, Transaction’in yalnizca okuma islemi yapacagini belirtir. Veritabanina yazma islemi yapilmaz. Bu, performansi artirabilir ve bazi veritabani optimizasyonlarini tetikleyebilir.
