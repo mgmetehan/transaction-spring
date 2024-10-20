@@ -154,7 +154,7 @@ Hangi istisnalarin (exceptions) transaction’in rollback edilmesini tetikleyecegi
 </p>
 
 #### **PHANTOM READS (Hayalet Okuma)**
-- **Phantom Reads**, bir transaction'in ayni sorguyu tekrar ettiginde, daha once mevcut olmayan yeni sat?rlar eklenir (veya mevcut sat?rlar silinir). Ayn? i?lem i?inde yap?lan sonraki bir okuma, ilk okuma s?ras?nda mevcut olmayan sat?rlar? i?erebilir ya da silinen sat?rlar? i?ermeyebilir.
+- **Phantom Reads**, bir transaction'in ayni sorguyu tekrar ettiginde, daha once mevcut olmayan yeni satirlar eklenir (veya mevcut satirlar silinir). Ayni islem icinde yapilan sonraki bir okuma, ilk okuma sirasinda mevcut olmayan satirlari icerebilir ya da silinen satirlari icermeyebilir.
 
 <p align="center">
     <img src="png/phantomRead.png" alt="full-text-search" width="%100" height="%100" style="border-radius: 20px">
