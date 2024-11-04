@@ -1,4 +1,10 @@
 # Spring Boot Transaction
+
+# Sunum Kaydi:
+[Spring Boot ile Transaction YÃ¶netimi - Commit, Rollback, Propagation ve Isolation](https://www.youtube.com/watch?v=Q_vBbG3bnb8)
+
+    https://www.youtube.com/watch?v=Q_vBbG3bnb8
+
 Transaction'lar, veri tutarliligi, hata yonetimi ve sistem guvenilirligi saglamak icin kritik oneme sahiptir. Transaction'lara neden ihtiyac duydugumuzu bir ornekle inceleyelim.
 
 ### Good Case:
@@ -44,21 +50,21 @@ Bir **transaction** (islem), bir veritabani uzerinde bir veya daha fazla sorgunu
 Transaction yonetiminin nasil ele alinacagini belirleyen bir ozelliktir. Transaction'in varligi ve yeni transaction baslatma kosullari, propagation turune bagli olarak degisir:
 
 1. **REQUIRED (Gerekli):**
-    - `NotificationService.sendNotification()` dogrudan cagrildiginda, kendi Transaction’ini olusturur.
+    - `NotificationService.sendNotification()` dogrudan cagrildiginda, kendi Transactionâ€™ini olusturur.
     - `UserService.registerUser()` metodundan `sendNotification()` cagrildiginda:
         - a. Eger `registerUser()` metodunda bir Transaction varsa, mevcut Transaction kullanilir.
-        - b. Eger `registerUser()` metodunda Transaction yoksa, `sendNotification()` kendi Transaction’ini olusturur.
-    - Yani, `REQUIRED` durumunda `sendNotification()`, mevcut bir Transaction varsa onu kullanir; yoksa kendi Transaction’ini baslatir.
+        - b. Eger `registerUser()` metodunda Transaction yoksa, `sendNotification()` kendi Transactionâ€™ini olusturur.
+    - Yani, `REQUIRED` durumunda `sendNotification()`, mevcut bir Transaction varsa onu kullanir; yoksa kendi Transactionâ€™ini baslatir.
 
 <p align="center">
     <img src="png/REQUIRED.png" alt="full-text-search" width="%100" height="%100" style="border-radius: 20px">
 </p>
 
 2. **REQUIRES_NEW (Yeni Gerekir):**
-    - `NotificationService.sendNotification()` dogrudan cagrildiginda, kendi yeni Transaction’ini olusturur.
+    - `NotificationService.sendNotification()` dogrudan cagrildiginda, kendi yeni Transactionâ€™ini olusturur.
     - `UserService.registerUser()` metodundan `sendNotification()` cagrildiginda:
         - a. Eger `registerUser()` metodunda bir Transaction varsa, bu mevcut Transaction kullanilmaz ve `sendNotification()` yeni bir Transaction olusturur.
-        - b. Eger `registerUser()` metodunda Transaction yoksa, `sendNotification()` kendi yeni Transaction’ini olusturur.
+        - b. Eger `registerUser()` metodunda Transaction yoksa, `sendNotification()` kendi yeni Transactionâ€™ini olusturur.
     - Yani, `REQUIRES_NEW` durumunda `sendNotification()`, her zaman yeni bir Transaction olusturur.
 
 <p align="center">
@@ -66,7 +72,7 @@ Transaction yonetiminin nasil ele alinacagini belirleyen bir ozelliktir. Transac
 </p>
 
 3. **SUPPORTS (Desteklenir):**
-    - `NotificationService.sendNotification()` dogrudan cagrildiginda, kendi Transaction’ini olusturmaz.
+    - `NotificationService.sendNotification()` dogrudan cagrildiginda, kendi Transactionâ€™ini olusturmaz.
     - `UserService.registerUser()` metodundan `sendNotification()` cagrildiginda:
         - a. Eger `registerUser()` metodunda bir Transaction varsa, mevcut Transaction kullanilir.
         - b. Eger `registerUser()` metodunda Transaction yoksa, `sendNotification()` yeni bir Transaction olusturmaz ve Transaction olmadan calisir.
@@ -110,15 +116,15 @@ Transaction yonetiminin nasil ele alinacagini belirleyen bir ozelliktir. Transac
 </p>
 
 7. **NESTED (Asla):**
-- Mevcut bir Transaction icinde yeni bir alt Transaction baslatilir. Bu alt Transaction, ana Transaction’dan bagimsiz olarak commit veya rollback edilebilir.
+- Mevcut bir Transaction icinde yeni bir alt Transaction baslatilir. Bu alt Transaction, ana Transactionâ€™dan bagimsiz olarak commit veya rollback edilebilir.
     - `NotificationService.sendNotification()` dogrudan cagrildiginda:
-        - **Sonuc:** Kendi yeni alt Transaction’ini olusturur.
+        - **Sonuc:** Kendi yeni alt Transactionâ€™ini olusturur.
     - `UserService.registerUser()` metodundan `sendNotification()` cagrildiginda:
         - a. Eger `registerUser()` metodunda bir Transaction varsa:
             - **Sonuc:** `sendNotification()` mevcut Transaction icinde calisir ve yeni bir alt Transaction olusturur.
         - b. Eger `registerUser()` metodunda Transaction yoksa:
-            - **Sonuc:** `sendNotification()` kendi yeni alt Transaction’ini olusturur.
-    - Yani, `NESTED` durumunda `sendNotification()`, mevcut bir Transaction varsa alt Transaction olusturur; yoksa kendi alt Transaction’ini baslatir.
+            - **Sonuc:** `sendNotification()` kendi yeni alt Transactionâ€™ini olusturur.
+    - Yani, `NESTED` durumunda `sendNotification()`, mevcut bir Transaction varsa alt Transaction olusturur; yoksa kendi alt Transactionâ€™ini baslatir.
 
 <p align="center">
     <img src="png/NESTED.png" alt="full-text-search" width="%100" height="%100" style="border-radius: 20px">
@@ -143,18 +149,18 @@ Bu durumda, transactional islem yalnizca **public** metodun cagrilmasiyla baslar
 </details>
 
 #### 2. **readOnly**
-`readOnly = true` olarak ayarlandiginda, Transaction’in yalnizca okuma islemi yapacagini belirtir. Veritabanina yazma islemi yapilmaz. Bu, performansi artirabilir ve bazi veritabani optimizasyonlarini tetikleyebilir.
+`readOnly = true` olarak ayarlandiginda, Transactionâ€™in yalnizca okuma islemi yapacagini belirtir. Veritabanina yazma islemi yapilmaz. Bu, performansi artirabilir ve bazi veritabani optimizasyonlarini tetikleyebilir.
 
 #### 3. **timeout**
-Transaction’in ne kadar sure icinde tamamlanmasi gerektigini belirler. Belirtilen sureyi asan transaction otomatik olarak rollback edilir. Ornegin, `timeout = 5` saniye seklinde belirtildiginde, 5 saniyeden uzun suren islemler geri alinir.
+Transactionâ€™in ne kadar sure icinde tamamlanmasi gerektigini belirler. Belirtilen sureyi asan transaction otomatik olarak rollback edilir. Ornegin, `timeout = 5` saniye seklinde belirtildiginde, 5 saniyeden uzun suren islemler geri alinir.
 
 #### 4. **rollbackFor**
-Hangi istisnalarin (exceptions) transaction’in rollback edilmesini tetikleyecegini belirler. Ornegin, `rollbackFor = Exception.class` kullanildiginda, belirtilen turde bir istisna meydana geldiginde transaction geri alinir.
+Hangi istisnalarin (exceptions) transactionâ€™in rollback edilmesini tetikleyecegini belirler. Ornegin, `rollbackFor = Exception.class` kullanildiginda, belirtilen turde bir istisna meydana geldiginde transaction geri alinir.
 
 ### Transaction isolation Anomalileri
 
 #### **DIRTY READS( Kirli Okuma)**
-- **Dirty Reads**, bir transaction’in baska bir transaction tarafindan yapilan ancak commit edilmemis degisiklikleri okumasidir. Eger bu degisiklikler daha sonra rollback edilirse, okunan veriler gecersiz hale gelir. Bu durum veri tutarsizliklarina yol acabilir.
+- **Dirty Reads**, bir transactionâ€™in baska bir transaction tarafindan yapilan ancak commit edilmemis degisiklikleri okumasidir. Eger bu degisiklikler daha sonra rollback edilirse, okunan veriler gecersiz hale gelir. Bu durum veri tutarsizliklarina yol acabilir.
 
 <p align="center">
     <img src="png/dirtyRead.png" alt="full-text-search" width="%100" height="%100" style="border-radius: 20px">
@@ -175,7 +181,7 @@ Hangi istisnalarin (exceptions) transaction’in rollback edilmesini tetikleyecegi
 </p>
 
 #### 5. **isolation**
-Bir transaction’in diger transaction'larla olan etkilesim duzeyini belirler. Transaction isolation seviyeleri, bir transaction'in veritabanindaki diger transaction'larin yaptigi degisiklikleri ne zaman gorebilecegini kontrol eder.
+Bir transactionâ€™in diger transaction'larla olan etkilesim duzeyini belirler. Transaction isolation seviyeleri, bir transaction'in veritabanindaki diger transaction'larin yaptigi degisiklikleri ne zaman gorebilecegini kontrol eder.
 
 Isolation es zamanli transactionlari, pararelde birbirlerini etkilemeden calistirmamizi saglar.
 
